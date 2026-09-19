@@ -5,7 +5,7 @@
     "s": "Firaxis",
     "y": 2023,
     "v": 210,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/289070/header.jpg"
   },
   {
     "c": "game",
@@ -13,7 +13,7 @@
     "s": "FromSoftware",
     "y": 2017,
     "v": 187,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg"
   },
   {
     "c": "game",
@@ -29,7 +29,7 @@
     "s": "Capcom",
     "y": 2024,
     "v": 156,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/582010/header.jpg"
   },
   {
     "c": "game",
@@ -37,7 +37,7 @@
     "s": "CD Projekt Red",
     "y": 2018,
     "v": 142,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg"
   },
   {
     "c": "game",
@@ -45,7 +45,7 @@
     "s": "Ludeon",
     "y": 2018,
     "v": 133,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/294100/header.jpg"
   },
   {
     "c": "game",
@@ -53,7 +53,7 @@
     "s": "Rockstar",
     "y": 2020,
     "v": 121,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg"
   },
   {
     "c": "game",
@@ -61,7 +61,7 @@
     "s": "Atlus",
     "y": 2021,
     "v": 118,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/1687950/header.jpg"
   },
   {
     "c": "game",
@@ -69,7 +69,7 @@
     "s": "FromSoftware",
     "y": 2022,
     "v": 98,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/header.jpg"
   },
   {
     "c": "game",
@@ -77,7 +77,7 @@
     "s": "Re-Logic",
     "y": 2020,
     "v": 89,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/header.jpg"
   },
   {
     "c": "game",
@@ -85,7 +85,7 @@
     "s": "Supergiant",
     "y": 2017,
     "v": 76,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg"
   },
   {
     "c": "game",
@@ -93,7 +93,7 @@
     "s": "Team Cherry",
     "y": 2024,
     "v": 71,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg"
   },
   {
     "c": "game",
@@ -101,7 +101,7 @@
     "s": "ConcernedApe",
     "y": 2021,
     "v": 68,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/413150/header.jpg"
   },
   {
     "c": "game",
@@ -109,7 +109,7 @@
     "s": "Kojima",
     "y": 2023,
     "v": 63,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/1850570/header.jpg"
   },
   {
     "c": "game",
@@ -117,7 +117,7 @@
     "s": "ZA/UM",
     "y": 2021,
     "v": 54,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/header.jpg"
   },
   {
     "c": "game",
@@ -125,7 +125,7 @@
     "s": "Maddy Makes Games",
     "y": 2021,
     "v": 41,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/504230/header.jpg"
   },
   {
     "c": "game",
@@ -133,7 +133,7 @@
     "s": "Hazelight",
     "y": 2016,
     "v": 24,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/1426210/header.jpg"
   },
   {
     "c": "game",
@@ -141,7 +141,7 @@
     "s": "Valve",
     "y": 2019,
     "v": 22,
-    "cov": ""
+    "cov": "https://cdn.cloudflare.steamstatic.com/steam/apps/620/header.jpg"
   },
   {
     "c": "music",
@@ -149,7 +149,7 @@
     "s": "冀西南林路行",
     "y": 2024,
     "v": 62,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/c5/bd/a6/c5bda6ad-0ed6-849d-dc07-c6b527c0b5aa/cover.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -157,7 +157,7 @@
     "s": "In Rainbows",
     "y": 2022,
     "v": 48,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/dd/50/c7/dd50c790-99ac-d3d0-5ab8-e3891fb8fd52/634904032463.png/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -173,7 +173,7 @@
     "s": "1701",
     "y": 2023,
     "v": 41,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/93/cf/40/93cf4004-3469-dfc1-6586-aac1ff1dc13a/9787883257196.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -181,7 +181,7 @@
     "s": "黑梦",
     "y": 2024,
     "v": 36,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d2/1e/50/d21e5005-c0ff-9bcc-cfa0-c82fe61fccf5/4710149710130_cover.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -189,7 +189,7 @@
     "s": "Selected Ambient Works",
     "y": 2019,
     "v": 33,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/5f/b3/e0/5fb3e08d-c2cd-3da4-6ad7-c5dc61803683/cover.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -197,7 +197,7 @@
     "s": "华丽的冒险",
     "y": 2019,
     "v": 31,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music/v4/c5/c5/b9/c5c5b9a5-7b08-1579-950e-6ad69d8f105a/2005_9-_1400.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -213,7 +213,7 @@
     "s": "最美妙的旅行",
     "y": 2022,
     "v": 29,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/7e/8b/39/7e8b39ac-4818-3d9a-35db-1a66c19fcc5a/cover.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -221,7 +221,7 @@
     "s": "Homogenic",
     "y": 2017,
     "v": 27,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/12/38/d0/1238d076-0a43-5758-1876-5ab6d256d648/5016958995157.png/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -229,7 +229,7 @@
     "s": "Cassa Nova",
     "y": 2015,
     "v": 26,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/47/24/0a/47240ae1-48d5-f598-16d6-fecbccd0c922/5021732419736.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -237,7 +237,7 @@
     "s": "Lovely Sunday",
     "y": 2024,
     "v": 25,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/1b/99/71/1b997132-634f-508c-f558-78cdbe28c53f/cover.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -245,7 +245,7 @@
     "s": "async",
     "y": 2024,
     "v": 24,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/82/e0/7b/82e07b9a-1d98-bbf4-d1e2-fb94312bbea2/731383683060.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -253,7 +253,7 @@
     "s": "Bloom",
     "y": 2016,
     "v": 22,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8b/b7/08/8bb7086b-cdb5-1ffe-926b-e7637bda6a0d/BeachHouse_Bloom_iTunes.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -261,7 +261,7 @@
     "s": "Red",
     "y": 2024,
     "v": 19,
-    "cov": ""
+    "cov": "https://is1-ssl.mzstatic.com/image/thumb/Music4/v4/a8/5d/d3/a85dd370-ed7e-1e6f-f2ee-5464f7b3a978/Red_2500px.jpg/600x600bb.jpg"
   },
   {
     "c": "music",
@@ -277,7 +277,7 @@
     "s": "动画",
     "y": 2022,
     "v": 54,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/f6ac27ecf47b3b7e080bf0f8ad778e00c35ccbc7.png"
   },
   {
     "c": "video",
@@ -285,7 +285,7 @@
     "s": "动画",
     "y": 2023,
     "v": 47,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/86d9bab90a88fd65d63a0d917b36b41c29a4a48c.jpg"
   },
   {
     "c": "video",
@@ -293,7 +293,7 @@
     "s": "剧集",
     "y": 2019,
     "v": 38,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/088ffeefc4d033bf2c20a75b98f31023b69f62fb.jpg"
   },
   {
     "c": "video",
@@ -301,7 +301,7 @@
     "s": "动画",
     "y": 2018,
     "v": 32,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/010fb56bd0fb452dfad30ffb5df9af191aad9838.jpg"
   },
   {
     "c": "video",
@@ -309,7 +309,7 @@
     "s": "剧集",
     "y": 2018,
     "v": 29,
-    "cov": ""
+    "cov": "https://i0.hdslb.com/bfs/archive/35476fb1db82ccbf8a68ac7e19fbabf836e3f422.jpg"
   },
   {
     "c": "video",
@@ -317,7 +317,7 @@
     "s": "BBC",
     "y": 2022,
     "v": 26,
-    "cov": ""
+    "cov": "https://i1.hdslb.com/bfs/archive/e6acf53e99e54e53d241b9f486929e22a32c5fe2.jpg"
   },
   {
     "c": "video",
@@ -325,7 +325,7 @@
     "s": "ITV",
     "y": 2015,
     "v": 23,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/124d5b3f23db5e5b8d89f1585f0364f0a3e37118.jpg"
   },
   {
     "c": "video",
@@ -333,7 +333,7 @@
     "s": "BBC",
     "y": 2023,
     "v": 21,
-    "cov": ""
+    "cov": "https://i0.hdslb.com/bfs/archive/b6656625b82d8fe97176fb7efd743d5089ed2019.png"
   },
   {
     "c": "video",
@@ -341,7 +341,7 @@
     "s": "Nat Geo",
     "y": 2021,
     "v": 18,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/ebb81df085bee68490495a7be44e9e71e14b5714.png"
   },
   {
     "c": "video",
@@ -349,7 +349,7 @@
     "s": "综艺",
     "y": 2018,
     "v": 16,
-    "cov": ""
+    "cov": "https://i0.hdslb.com/bfs/archive/b8b325f4362d88c73250707bc37a148a36b0c02e.png"
   },
   {
     "c": "video",
@@ -365,7 +365,7 @@
     "s": "纪录片",
     "y": 2022,
     "v": 12,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/15770becfeb2feb55fb307297222cf2323d43434.png"
   },
   {
     "c": "video",
@@ -373,7 +373,7 @@
     "s": "TVB",
     "y": 2020,
     "v": 11,
-    "cov": ""
+    "cov": "https://i0.hdslb.com/bfs/archive/e47581f43ab9a376d0c12a64e6e134e401179319.jpg"
   },
   {
     "c": "video",
@@ -381,6 +381,6 @@
     "s": "纪录片",
     "y": 2023,
     "v": 9,
-    "cov": ""
+    "cov": "https://i2.hdslb.com/bfs/archive/8bdcfd595894f3687c3b53c3d36150ef7eb1ba3c.png"
   }
 ]

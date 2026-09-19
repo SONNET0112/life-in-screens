@@ -66,6 +66,22 @@ python tools/fetch_data.py music
 python tools/fetch_data.py patch
 ```
 
+### 给条目配上真实封面
+
+不填 `cov` 的条目显示的是程序生成的抽象封面。想看到真实的游戏封面 / 专辑封面 / 视频封面：
+
+```bash
+python tools/resolve_covers.py
+```
+
+它会用 Steam 搜索（游戏）、iTunes（音乐）、B站（视频）自动找封面，**每个 URL 都实际下载验证过**才写入。
+搜索到的结果必须和条目名对得上才采用 —— 配错封面比没有封面糟得多（Hades 和 Hades II 的封面很像，很难发现）。
+
+拿不到的会保留生成封面，不会硬凑。常见原因：
+- Switch 独占游戏（如塞尔达）Steam 上根本没有
+- 华语独立音乐 iTunes 覆盖不全
+- B站 搜索接口有反爬限流，重跑一次通常就好了
+
 ### 不想联网？先跑一遍看效果
 
 ```bash
@@ -97,4 +113,5 @@ covers/               本地封面图，可选
 - 封面图加载失败会自动退回程序生成的几何封面，不会出现空白砖块。
 - 想手动改数据也可以：编辑 `data/*.json` 再 `patch`，或直接改 `index.html` 里
   `/* ==== DATA:BEGIN ==== */` 和 `/* ==== DATA:END ==== */` 之间的部分（会被 patch 覆盖）。
+
 
