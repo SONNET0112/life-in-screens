@@ -1,0 +1,1029 @@
+﻿reduce 兜底              hits=1img decoding           hits=1 buildNav 进度条           hits=1 滚动进度条                  hits=1 init 标题遮罩              hits=1 reveal 保险丝             hits=1 reveal 签名              hits=1 CSS 新增块                hits=1 <!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的人生去哪了 · 个人娱乐档案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 非阻塞加载。Google Fonts 在国内可能被墙，同步加载会拖住整页渲染约 2 秒 -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;700;900&display=swap">
+<noscript><link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;700;900&display=swap"></noscript>
+<style>
+/* ============================================================
+   我的人生去哪了 · 极繁拼贴墙
+   单文件，零构建。数据在文件底部 DATA 常量。
+   ============================================================ */
+
+:root{
+  --ink:      #0b0a0c;
+  --ink-2:    #141218;
+  --paper:    #f5f2ea;
+  --mute:     #6b6673;
+  --acid:     #d9ff3d;
+  --hot:      #ff3d81;
+  --gut:      clamp(10px,1.1vw,18px);
+
+  --f-disp: 'Anton', Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --f-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--f-body);
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+::selection{background:var(--acid);color:var(--ink)}
+
+/* ---------- 氛围层：噪点 + 光晕 ---------- */
+.grain{
+  position:fixed; inset:-60%; z-index:900; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 7s steps(5) infinite;
+}
+@keyframes grain{
+  0%{transform:translate(0,0)}      20%{transform:translate(-4%,3%)}
+  40%{transform:translate(3%,-4%)}  60%{transform:translate(-3%,-3%)}
+  80%{transform:translate(4%,2%)}   100%{transform:translate(0,0)}
+}
+.glow{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(52vw 52vw at 14% 8%,  rgba(217,255,61,.10), transparent 62%),
+    radial-gradient(46vw 46vw at 88% 26%, rgba(255,61,129,.11), transparent 64%),
+    radial-gradient(60vw 60vw at 50% 96%, rgba(80,120,255,.10), transparent 66%);
+  animation:drift 22s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  from{transform:translate3d(-2%,-1%,0) scale(1.02)}
+  to  {transform:translate3d(2%,2%,0)   scale(1.08)}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative; z-index:2;
+  min-height:100vh; min-height:100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:16vh 5vw 12vh;
+  overflow:hidden;
+}
+.ghost{
+  position:absolute; inset:-12%; z-index:0; opacity:.17;
+  filter:blur(1.4px) saturate(1.25);
+  pointer-events:none; will-change:transform;
+}
+.ghost .gt{
+  position:absolute; border-radius:2px; overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.6);
+}
+.hero-inner{position:relative; z-index:3; width:100%}
+
+.eyebrow{
+  font-family:var(--f-mono); font-size:clamp(9px,1.05vw,12px);
+  letter-spacing:.42em; text-transform:uppercase; color:var(--mute);
+  padding-left:.42em;
+}
+.bignum{
+  font-family:var(--f-disp);
+  font-size:clamp(104px,25vw,400px);
+  line-height:.8; letter-spacing:-.025em;
+  color:var(--paper);
+  margin:.06em 0 0;
+  text-shadow:0 0 90px rgba(217,255,61,.20), 0 0 190px rgba(255,61,129,.12);
+  font-variant-numeric:tabular-nums;
+}
+.unitrow{
+  display:flex; align-items:baseline; justify-content:center; gap:.5em;
+  margin-top:-.02em;
+}
+.unit{
+  font-family:var(--f-disp); font-size:clamp(38px,7vw,110px);
+  line-height:.9; color:var(--acid); letter-spacing:.02em;
+}
+.unitnote{
+  font-family:var(--f-mono); font-size:clamp(10px,1.1vw,13px);
+  letter-spacing:.22em; color:var(--mute); text-transform:uppercase;
+}
+.toggler{
+  position:relative; height:1.9em; margin-top:clamp(26px,4vh,54px);
+  font-family:var(--f-mono); font-size:clamp(11px,1.35vw,15px);
+  letter-spacing:.06em; color:var(--paper);
+}
+.toggler span{
+  position:absolute; left:0; right:0; top:0;
+  opacity:0; transition:opacity .5s ease, transform .5s ease;
+  transform:translateY(6px);
+}
+.toggler span.on{opacity:1; transform:translateY(0)}
+.toggler b{color:var(--acid); font-weight:500}
+
+.scrollhint{
+  position:absolute; bottom:clamp(20px,4vh,44px); left:0; right:0; z-index:3;
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.34em;
+  text-transform:uppercase; color:var(--mute);
+  animation:bob 2.4s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
+
+/* ---------- 墙前说明 ---------- */
+.walltext{
+  position:relative; z-index:2;
+  padding:clamp(60px,12vh,140px) clamp(20px,7vw,120px) clamp(34px,6vh,64px);
+  max-width:1180px;
+}
+.walltext .kicker{
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.4em;
+  text-transform:uppercase; color:var(--acid);
+}
+.walltext h2{
+  font-weight:900; font-size:clamp(26px,4.4vw,62px);
+  line-height:1.04; letter-spacing:-.02em; margin:.3em 0 .5em;
+}
+.walltext h2 em{font-style:normal; color:var(--acid)}
+.walltext p{
+  font-size:clamp(13px,1.35vw,16px); line-height:1.85;
+  color:#a9a3b0; max-width:52ch;
+}
+
+/* ---------- 分区导航（吸顶） ---------- */
+.chips{
+  position:sticky; top:0; z-index:30;
+  display:flex; flex-wrap:wrap; gap:8px;
+  padding:11px clamp(20px,7vw,120px);
+  background:linear-gradient(to bottom, rgba(11,10,12,.94), rgba(11,10,12,.6));
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(245,242,234,.07);
+}
+.chip{
+  font-family:var(--f-mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; text-decoration:none;
+  background:transparent; color:var(--mute);
+  border:1px solid rgba(245,242,234,.16);
+  padding:.55em 1.15em; border-radius:999px; cursor:pointer;
+  transition:all .28s cubic-bezier(.2,.8,.2,1);
+}
+.chip:hover{color:var(--paper); border-color:rgba(245,242,234,.45); transform:translateY(-2px)}
+.chip.on{background:var(--acid); color:var(--ink); border-color:var(--acid); font-weight:500}
+
+/* ---------- 墙 ---------- */
+.wall{
+  position:relative; z-index:2;
+  padding:0 var(--gut) clamp(34px,6vh,80px);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:clamp(84px,8.6vw,134px);
+  grid-auto-flow:dense;
+  gap:var(--gut);
+}
+/* 砖块尺寸（12 栏） */
+.tile.s0{grid-column:span 4;grid-row:span 3}
+.tile.s1{grid-column:span 3;grid-row:span 2}
+.tile.s2{grid-column:span 3;grid-row:span 2}
+.tile.s3{grid-column:span 6;grid-row:span 3}
+.tile.s4{grid-column:span 2;grid-row:span 2}
+.tile.s5{grid-column:span 4;grid-row:span 2}
+.tile.s6{grid-column:span 3;grid-row:span 3}
+.tile.s7{grid-column:span 6;grid-row:span 4}
+
+/* 静止态必须是「可见」。把 opacity:0 当静止态，一旦 JS 没跑、观察器没触发、
+   或动画被中断，用户看到的就是一整页全黑 —— 这个失败模式代价太大。 */
+.tile{
+  position:relative; overflow:hidden; border-radius:2px;
+  background:var(--ink-2);
+  transform:rotate(var(--rot,0deg));
+  cursor:crosshair;
+}
+/* 只有 JS 明确挂上 .anim 之后，才进入「隐藏待入场」状态 */
+.anim .tile{
+  opacity:0;
+  transform:translateY(30px) scale(.955) rotate(var(--rot,0deg));
+  will-change:transform,opacity;
+  transition:
+    opacity   .72s cubic-bezier(.2,.8,.2,1) var(--d,0ms),
+    transform .85s cubic-bezier(.2,.8,.2,1) var(--d,0ms);
+}
+.anim .tile.in{
+  opacity:1;
+  transform:translateY(0) scale(1) rotate(var(--rot,0deg));
+}
+.grid:hover .tile:not(:hover){opacity:.26; filter:saturate(.35) brightness(.7)}
+.grid .tile:hover{
+  transform:scale(1.045) rotate(0deg);
+  z-index:6;
+  box-shadow:0 34px 90px rgba(0,0,0,.78);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .3s, filter .3s;
+}
+
+.cv{position:absolute; inset:0; display:block}
+.cv::after{
+  content:''; position:absolute; inset:auto 0 0 0; height:58%;
+  background:linear-gradient(to top,rgba(0,0,0,.88),transparent);
+  z-index:1; pointer-events:none;
+}
+.motif{position:absolute; inset:0; z-index:0}
+/* 真实封面图（Steam header.jpg 等）。和母题同为 z-index:0，靠 DOM 顺序盖在上面；
+   加载失败时 <img> 会被 onerror 移除，底下的程序生成母题自动露出来。 */
+.art{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:0}
+.motif svg{width:100%; height:100%; display:block}
+
+.idx{
+  position:absolute; top:9px; left:11px; z-index:2;
+  font-family:var(--f-mono); font-size:9px; letter-spacing:.2em;
+  color:rgba(255,255,255,.5);
+}
+.nm{
+  position:absolute; left:11px; right:11px; bottom:32px; z-index:2;
+  font-weight:900; font-size:clamp(14px,1.42vw,25px);
+  line-height:.98; letter-spacing:-.015em;
+  text-shadow:0 2px 20px rgba(0,0,0,.7);
+  word-break:break-word;
+}
+.lab{
+  position:absolute; left:11px; right:11px; bottom:9px; z-index:2;
+  display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+  font-family:var(--f-mono); font-size:9.5px; letter-spacing:.13em;
+  color:var(--acid);
+  min-width:0;
+}
+/* 窄砖上的长副标题（如 "2017 · Maddy Makes Games"）会换行并顶到标题，
+   所以只让年份+副标题那一侧收缩出省略号，时长一侧不压缩。 */
+.lab .yr{color:rgba(255,255,255,.52); min-width:0;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.lab .hr{flex:none}
+
+/* 亮色砖：文字反色 */
+.tile.bright .nm{color:#0b0a0c; text-shadow:none}
+.tile.bright .cv::after{background:linear-gradient(to top,rgba(255,255,255,.5),transparent)}
+.tile.bright .lab{color:#0b0a0c}
+.tile.bright .lab .yr{color:rgba(0,0,0,.5)}
+.tile.bright .idx{color:rgba(0,0,0,.42)}
+
+/* ---------- 分区标题 ---------- */
+.band-head{
+  position:relative; z-index:2;
+  padding:clamp(56px,10vh,130px) clamp(20px,7vw,120px) clamp(16px,2.6vh,30px);
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:20px; flex-wrap:wrap;
+}
+.band-head .kicker{
+  display:block; margin-bottom:.9em;
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.4em;
+  text-transform:uppercase; color:var(--acid);
+}
+.band-head h2{
+  font-family:var(--f-disp); font-weight:900;
+  font-size:clamp(52px,12vw,200px);
+  line-height:.8; letter-spacing:-.03em; margin:0; color:var(--paper);
+}
+.band-head h2 em{font-style:normal; color:var(--acid)}
+.band-meta{
+  font-family:var(--f-mono); font-size:10.5px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--mute); padding-bottom:.9em;
+}
+.band-meta b{color:var(--paper); font-weight:500}
+
+/* ---------- 时间线：年份天际线 ---------- */
+/* 墙是混沌的，天际线是秩序 —— 用三个固定分类色把结构讲清楚 */
+.sky-word{
+  position:relative; z-index:2;
+  padding:0 clamp(20px,7vw,120px) clamp(22px,3.4vh,42px);
+}
+.legend{
+  display:flex; gap:18px; flex-wrap:wrap;
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--mute);
+}
+.legend span{display:flex; align-items:center}
+.legend i{width:10px; height:10px; border-radius:1px; margin-right:7px; flex:none}
+.legend .lg-game  i{background:var(--acid)}
+.legend .lg-music i{background:var(--hot)}
+.legend .lg-video i{background:#5aa9ff}
+
+.sky-wrap{
+  position:relative; z-index:2;
+  padding:0 clamp(20px,7vw,120px) clamp(70px,11vh,140px);
+  overflow-x:clip;
+}
+.sky-grid{
+  display:flex; align-items:flex-end; gap:clamp(3px,.7vw,12px);
+  height:clamp(230px,36vh,440px);
+  border-bottom:1px solid rgba(245,242,234,.2);
+}
+.sky-col{
+  position:relative; flex:1 1 0; min-width:0; height:100%;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  cursor:crosshair;
+}
+.sky-bars{
+  display:flex; flex-direction:column; width:100%;
+  height:var(--h,0%);
+  transform-origin:bottom center;
+  outline:1px solid rgba(11,10,12,.5);
+}
+/* 静止态是「完整高度」。scaleY(0) 只在 JS 挂上 .anim 之后才存在 —— 理由同砖块：
+   可见性不该依赖动画完成，否则动画一断整屏就没了。 */
+.anim .sky-bars{transform:scaleY(0); transition:transform .95s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+.anim .sky-col.in .sky-bars{transform:scaleY(1)}
+.sky-seg{width:100%}
+.sky-seg.game {background:var(--acid)}
+.sky-seg.music{background:var(--hot)}
+.sky-seg.video{background:#5aa9ff}
+.sky-col:hover .sky-bars{filter:brightness(1.3) saturate(1.15)}
+.sky-yr{
+  position:absolute; top:calc(100% + 11px); left:0; right:0; text-align:center;
+  font-family:var(--f-mono); font-size:clamp(9.5px,1vw,12px);
+  color:var(--mute); transition:color .2s;
+}
+.sky-col:hover .sky-yr{color:var(--acid)}
+.sky-tip{
+  position:absolute; top:calc(100% + 30px); left:50%; transform:translateX(-50%);
+  background:var(--ink-2); border:1px solid rgba(245,242,234,.18);
+  padding:8px 11px; border-radius:2px; white-space:nowrap;
+  font-family:var(--f-mono); font-size:10.5px; color:var(--paper);
+  opacity:0; pointer-events:none; transition:opacity .2s; z-index:9;
+}
+.sky-col:hover .sky-tip{opacity:1}
+/* 提示气泡是 nowrap 且居中的，最外侧几列会伸出视口 —— 它 opacity:0 看不见，
+   但照样占布局，会把文档撑出横向溢出。首列贴左、末两列贴右，再兜一层横向裁切。 */
+.sky-col:first-child .sky-tip{left:0; transform:none}
+.sky-col:nth-last-child(-n+2) .sky-tip{left:auto; right:0; transform:none}
+.sky-tip b{color:var(--acid); font-weight:500}
+
+/* ---------- 分区内小标题 ---------- */
+.subhead{
+  position:relative; z-index:2;
+  padding:clamp(24px,5vh,72px) clamp(20px,7vw,120px) clamp(22px,3.4vh,42px);
+}
+.subhead .kicker{
+  display:block; margin-bottom:.85em;
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.4em;
+  text-transform:uppercase; color:var(--acid);
+}
+.subhead h3{
+  font-weight:900; font-size:clamp(24px,3.6vw,54px);
+  line-height:1.05; letter-spacing:-.02em; margin:0;
+}
+.subhead h3 em{font-style:normal; color:var(--acid)}
+
+/* ---------- 视频热力 ---------- */
+.heat-wrap{
+  position:relative; z-index:2;
+  padding:0 clamp(20px,7vw,120px) clamp(60px,10vh,120px);
+}
+.heat{
+  display:grid;
+  grid-template-columns:auto repeat(24,minmax(0,1fr));
+  gap:3px; align-items:center;
+}
+.heat-hr{
+  font-family:var(--f-mono); font-size:9px;
+  color:var(--mute); text-align:center;
+}
+.heat-dow{
+  font-family:var(--f-mono); font-size:10px; color:var(--mute);
+  text-align:right; padding-right:9px; white-space:nowrap;
+}
+.heat-c{
+  aspect-ratio:1/1; border-radius:2px; min-width:0;
+  background:hsl(215 92% var(--l,7%));
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.heat-c:hover{transform:scale(1.45); box-shadow:0 0 0 1.5px var(--acid); position:relative; z-index:5}
+.heat-note{
+  margin-top:22px; font-family:var(--f-mono); font-size:11px;
+  line-height:1.95; color:var(--mute); letter-spacing:.03em;
+}
+.heat-note b{color:var(--acid); font-weight:500}
+
+/* ---------- 尾声 ---------- */
+/* ---------- 编排式进场 ---------- */
+/* 首屏元素按顺序落位。静止态永远可见，动画只在 .anim 存在时才介入 ——
+   这条原则贯穿全站：内容不能变成「必须等动画跑完才看得见」。 */
+.anim .hero-inner > *,
+.anim .scrollhint{
+  opacity:0;
+  animation:heroIn .95s cubic-bezier(.2,.8,.2,1) both;
+}
+.anim .eyebrow   {animation-delay:.05s}
+.anim .bignum    {animation-delay:.20s}
+.anim .unitrow   {animation-delay:.34s}
+.anim .toggler   {animation-delay:.50s}
+.anim .scrollhint{animation-delay:.78s}
+@keyframes heroIn{
+  from{opacity:0; transform:translateY(26px)}
+  to  {opacity:1; transform:translateY(0)}
+}
+
+/* 分区大标题：遮罩式上推 */
+.band-head h2 > .mask{
+  display:block; overflow:hidden;
+  padding-bottom:.06em; margin-bottom:-.06em;
+}
+.band-head h2 > .mask > .mask-in{display:block}
+.anim .band-head.in h2 > .mask > .mask-in{
+  animation:maskUp 1.05s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes maskUp{
+  from{transform:translateY(112%)}
+  to  {transform:translateY(0)}
+}
+
+/* 吸顶导航底部的阅读进度条 */
+.prog{
+  position:absolute; left:0; bottom:-1px; height:2px; width:0;
+  background:linear-gradient(90deg, var(--acid), var(--hot) 62%, #5aa9ff);
+  z-index:2;
+}
+
+/* 悬停：整块砖被推近一点，加一圈酸性描边 */
+.cv{transition:transform .62s cubic-bezier(.2,.8,.2,1)}
+.grid .tile:hover .cv{transform:scale(1.055)}
+.grid .tile:hover{
+  box-shadow:0 34px 90px rgba(0,0,0,.78), 0 0 0 1px rgba(217,255,61,.55);
+}
+
+.outro{
+  position:relative; z-index:2; text-align:center;
+  padding:clamp(60px,14vh,180px) 6vw clamp(80px,12vh,140px);
+}
+.outro p{
+  font-weight:900; font-size:clamp(20px,2.9vw,42px);
+  line-height:1.25; letter-spacing:-.015em;
+}
+.outro p em{font-style:normal; color:var(--acid)}
+.outro small{
+  display:block; margin-top:2.2em;
+  font-family:var(--f-mono); font-size:10px; letter-spacing:.32em;
+  text-transform:uppercase; color:var(--mute);
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:760px){
+  .grid{grid-template-columns:repeat(6,1fr); grid-auto-rows:clamp(70px,20vw,108px)}
+  .tile.s0{grid-column:span 3;grid-row:span 2}
+  .tile.s1{grid-column:span 3;grid-row:span 2}
+  .tile.s2{grid-column:span 6;grid-row:span 2}
+  .tile.s3{grid-column:span 6;grid-row:span 3}
+  .tile.s4{grid-column:span 3;grid-row:span 2}
+  .tile.s5{grid-column:span 3;grid-row:span 2}
+  .tile.s6{grid-column:span 3;grid-row:span 3}
+  .tile.s7{grid-column:span 6;grid-row:span 3}
+  .ghost{filter:blur(2.6px); opacity:.13}
+  body{cursor:auto}
+  .tile .nm{font-size:clamp(13px,3.6vw,19px)}
+  /* 手机上 24 列热力格每格不到 10px，9px 刻度会互相压住；改成横向可滚动，保住可读尺寸 */
+  .heat-wrap{overflow-x:auto}
+  .heat{min-width:660px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important; transition-duration:.01ms!important}
+  .tile,.anim .tile{opacity:1; transform:rotate(var(--rot,0deg))}
+  .anim .hero-inner > *,.anim .scrollhint{opacity:1; transform:none}
+  .anim .band-head.in h2 > .mask > .mask-in{transform:none}
+  .grid .tile:hover .cv{transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+<div class="grain"></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="ghost" id="ghost"></div>
+  <div class="hero-inner">
+    <div class="eyebrow" id="eyebrow">Personal Archive</div>
+    <div class="bignum" id="bignum">0</div>
+    <div class="unitrow">
+      <div class="unit">天</div>
+      <div class="unitnote" id="unitnote">/ in screens</div>
+    </div>
+    <div class="toggler" id="toggler">
+      <span class="on">这些时间不是消失了，是<b>被记录下来了</b>。</span>
+      <span>等于连续 <b>113 天</b> 不吃不睡。</span>
+      <span>全部 48 个条目，<b>2011 — 2023</b>。</span>
+    </div>
+  </div>
+  <div class="scrollhint">Scroll ↓ 看它们是什么</div>
+</header>
+
+<!-- ============ 墙前说明 ============ -->
+<section class="walltext">
+  <div class="kicker">The Archive</div>
+  <h2>下面是全部条目。<br>它们只是一串名字，<br>加起来却是 <em id="walltext-days">113 天</em>。</h2>
+  <p>每一块砖代表一段被记录下来的时间。鼠标停上去——旁边的会暗下去，只留下那一块。</p>
+</section>
+
+<!-- ============ 分区导航 ============ -->
+<nav class="chips" id="chips"></nav>
+
+<!-- ============ 屏 1 · 时间线 ============ -->
+<section class="band-head" id="timeline">
+  <div>
+    <span class="kicker">01 — Timeline</span>
+    <h2>时间<em>线</em></h2>
+  </div>
+  <div class="band-meta" id="sky-meta"></div>
+</section>
+<div class="sky-word"><div class="legend" id="legend"></div></div>
+<div class="sky-wrap"><div class="sky-grid" id="sky"></div></div>
+
+<!-- ============ 屏 2 · 游戏 ============ -->
+<section class="band-head" id="games">
+  <div>
+    <span class="kicker">02 — Games</span>
+    <h2>游戏</h2>
+  </div>
+  <div class="band-meta" id="games-meta"></div>
+</section>
+<main class="wall"><div class="grid" id="grid-game"></div></main>
+
+<!-- ============ 屏 3 · 音乐 ============ -->
+<section class="band-head" id="music">
+  <div>
+    <span class="kicker">03 — Music</span>
+    <h2>音乐</h2>
+  </div>
+  <div class="band-meta" id="music-meta"></div>
+</section>
+<main class="wall"><div class="grid" id="grid-music"></div></main>
+
+<!-- ============ 屏 4 · 视频 ============ -->
+<section class="band-head" id="video">
+  <div>
+    <span class="kicker">04 — Video</span>
+    <h2>视频</h2>
+  </div>
+  <div class="band-meta" id="video-meta"></div>
+</section>
+<main class="wall"><div class="grid" id="grid-video"></div></main>
+
+<div class="subhead">
+  <span class="kicker">Rhythm</span>
+  <h3>你什么时候<em>在看</em>。</h3>
+</div>
+<div class="heat-wrap">
+  <div class="heat" id="heat"></div>
+  <div class="heat-note" id="heat-note"></div>
+</div>
+
+<!-- ============ 尾声 ============ -->
+<section class="outro">
+  <p>你以为是你在玩它们。<br>其实是它们<em>在你生命里占了位置</em>。</p>
+  <small id="outro-meta">48 entries · 2,703 hours</small>
+</section>
+
+<script>
+/* ============================================================
+   ↓↓↓  DATA —— 换掉这一段，页面就是你的了  ↓↓↓
+
+   每条字段：
+     c  分类       'game' | 'music' | 'video'
+     n  名称
+     s  副标题（工作室 / 专辑 / 类型）
+     y  你消费它的年份（不是发行年份）
+     v  时长（小时）
+     cov 封面图 URL —— 留空则用程序生成的封面
+        （Steam 可用：https://cdn.cloudflare.steamstatic.com/steam/apps/{appid}/header.jpg）
+
+   拿真实数据的顺序：先 Steam（有官方 API，一次请求拿全部）
+   然后 B站（需要登录 cookie），音乐放最后（国内平台无官方 API）
+   ============================================================ */
+/* ============================================================
+   数据区。下面这一段由 tools/fetch_data.py 生成，手改也行，但下次 patch 会覆盖。
+
+   换成你自己的数据：
+     python tools/fetch_data.py steam --key <KEY> --steamid <ID>
+     python tools/fetch_data.py patch
+
+   字段：
+     c   分类   'game' | 'music' | 'video'
+     n   名称
+     s   副标题（工作室 / 专辑 / 分类）。留空则砖块上只显示年份
+     y   你消费它的年份 —— 不是发行年份
+     v   时长（小时）
+     cov 封面图 URL。留空用程序生成的封面；填了就换真实封面，
+         加载失败会自动退回程序生成的封面
+         （Steam：https://cdn.cloudflare.steamstatic.com/steam/apps/{appid}/header.jpg）
+
+   data/00-sample.json 是演示数据。有真实数据后建议删掉，否则 patch 会一起合并。
+   ============================================================ */
+
+/* ==== DATA:BEGIN ==== */
+const DATA = [
+  {c:'game', n:'文明6', s:'Firaxis', y:2023, v:210, cov:''},
+  {c:'game', n:'艾尔登法环', s:'FromSoftware', y:2017, v:187, cov:''},
+  {c:'game', n:'塞尔达传说 旷野之息', s:'Nintendo', y:2017, v:165, cov:''},
+  {c:'game', n:'怪物猎人：世界', s:'Capcom', y:2024, v:156, cov:''},
+  {c:'game', n:'巫师3：狂猎', s:'CD Projekt Red', y:2018, v:142, cov:''},
+  {c:'game', n:'环世界', s:'Ludeon', y:2018, v:133, cov:''},
+  {c:'game', n:'荒野大镖客2', s:'Rockstar', y:2020, v:121, cov:''},
+  {c:'game', n:'女神异闻录5', s:'Atlus', y:2021, v:118, cov:''},
+  {c:'game', n:'只狼：影逝二度', s:'FromSoftware', y:2022, v:98, cov:''},
+  {c:'game', n:'泰拉瑞亚', s:'Re-Logic', y:2020, v:89, cov:''},
+  {c:'game', n:'黑帝斯', s:'Supergiant', y:2017, v:76, cov:''},
+  {c:'game', n:'空洞骑士', s:'Team Cherry', y:2024, v:71, cov:''},
+  {c:'game', n:'星露谷物语', s:'ConcernedApe', y:2021, v:68, cov:''},
+  {c:'game', n:'死亡搁浅', s:'Kojima', y:2023, v:63, cov:''},
+  {c:'game', n:'极乐迪斯科', s:'ZA/UM', y:2021, v:54, cov:''},
+  {c:'game', n:'蔚蓝', s:'Maddy Makes Games', y:2021, v:41, cov:''},
+  {c:'game', n:'双人成行', s:'Hazelight', y:2016, v:24, cov:''},
+  {c:'game', n:'传送门2', s:'Valve', y:2019, v:22, cov:''},
+  {c:'music', n:'万能青年旅店', s:'冀西南林路行', y:2024, v:62, cov:''},
+  {c:'music', n:'Radiohead', s:'In Rainbows', y:2022, v:48, cov:''},
+  {c:'music', n:'草东没有派对', s:'丑奴儿', y:2020, v:44, cov:''},
+  {c:'music', n:'李志', s:'1701', y:2023, v:41, cov:''},
+  {c:'music', n:'窦唯', s:'黑梦', y:2024, v:36, cov:''},
+  {c:'music', n:'Aphex Twin', s:'Selected Ambient Works', y:2019, v:33, cov:''},
+  {c:'music', n:'陈绮贞', s:'华丽的冒险', y:2019, v:31, cov:''},
+  {c:'music', n:'重塑雕像的权利', s:'Before the Applause', y:2020, v:30, cov:''},
+  {c:'music', n:'声音玩具', s:'最美妙的旅行', y:2022, v:29, cov:''},
+  {c:'music', n:'Björk', s:'Homogenic', y:2017, v:27, cov:''},
+  {c:'music', n:'落日飞车', s:'Cassa Nova', y:2015, v:26, cov:''},
+  {c:'music', n:'椅子乐团', s:'Lovely Sunday', y:2024, v:25, cov:''},
+  {c:'music', n:'坂本龍一', s:'async', y:2024, v:24, cov:''},
+  {c:'music', n:'Beach House', s:'Bloom', y:2016, v:22, cov:''},
+  {c:'music', n:'King Crimson', s:'Red', y:2024, v:19, cov:''},
+  {c:'music', n:'FKA twigs', s:'MAGDALENE', y:2016, v:18, cov:''},
+  {c:'video', n:'进击的巨人', s:'动画', y:2022, v:54, cov:''},
+  {c:'video', n:'瑞克和莫蒂', s:'动画', y:2023, v:47, cov:''},
+  {c:'video', n:'孤独的美食家', s:'剧集', y:2019, v:38, cov:''},
+  {c:'video', n:'虫师', s:'动画', y:2018, v:32, cov:''},
+  {c:'video', n:'三体', s:'剧集', y:2018, v:29, cov:''},
+  {c:'video', n:'地球脉动', s:'BBC', y:2022, v:26, cov:''},
+  {c:'video', n:'人生七年', s:'ITV', y:2015, v:23, cov:''},
+  {c:'video', n:'蓝色星球2', s:'BBC', y:2023, v:21, cov:''},
+  {c:'video', n:'宇宙时空之旅', s:'Nat Geo', y:2021, v:18, cov:''},
+  {c:'video', n:'我在岛屿读书', s:'综艺', y:2018, v:16, cov:''},
+  {c:'video', n:'赛博朋克：边缘行者', s:'动画', y:2019, v:14, cov:''},
+  {c:'video', n:'河西走廊', s:'纪录片', y:2022, v:12, cov:''},
+  {c:'video', n:'无穷之路', s:'TVB', y:2020, v:11, cov:''},
+  {c:'video', n:'我在故宫修文物', s:'纪录片', y:2023, v:9, cov:''}
+];
+/* ==== DATA:END ==== */
+
+/* ==== HEAT:BEGIN ==== */
+/* B站观看历史聚合出的「星期 × 小时」矩阵（7 行 × 24 列，单位小时）。
+   留空则用页面内置的演示分布；tools/fetch_data.py 抓完 B站会自动填这里。 */
+const HEAT = [];
+/* ==== HEAT:END ==== */
+
+
+/* 分区导航：既是目录，也是锚点。id 对应下面各屏的 section id */
+const NAV = [
+  {k:'timeline', label:'时间线'},
+  {k:'games',    label:'游戏'},
+  {k:'music',    label:'音乐'},
+  {k:'video',    label:'视频'}
+];
+
+/* 三个分类的固定色。墙是混沌的，天际线和图例要靠固定色讲结构 */
+const CATCOLOR = {game:'var(--acid)', music:'var(--hot)', video:'#5aa9ff'};
+
+/* ============================================================
+   以下是引擎，通常不需要改
+   ============================================================ */
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s);
+
+/* ---- 稳定哈希：同一名字永远得到同一张封面 ---- */
+function hash(str){
+  let h = 2166136261;
+  for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h,16777619); }
+  return h >>> 0;
+}
+
+/* ---- 8 种母题，程序生成封面，零外部图片 ---- */
+const MOTIFS = [
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="${c}" stroke-width="2.2">${[8,18,28,38,48].map(r=>`<circle cx="50" cy="50" r="${r}"/>`).join('')}</g></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><g stroke="${c}" stroke-width="6">${Array.from({length:15},(_,i)=>`<line x1="${-24+i*12}" y1="112" x2="${16+i*12}" y2="-12"/>`).join('')}</g></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><g fill="${c}">${Array.from({length:36},(_,i)=>{const x=(i%6)*17+11,y=Math.floor(i/6)*17+11;return `<circle cx="${x}" cy="${y}" r="${2.6+(i%3)*1.1}"/>`}).join('')}</g></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><path d="M-12 102 A 62 62 0 0 1 112 102" fill="${c}"/><path d="M8 102 A 42 42 0 0 1 92 102" fill="none" stroke="${c}" stroke-width="1.8"/></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="${c}">${Array.from({length:9},(_,i)=>{const h=14+((i*37)%72);return `<rect x="${i*11+2}" y="${101-h}" width="7" height="${h}"/>`}).join('')}</g></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><g stroke="${c}" stroke-width="1.1" opacity=".85">${Array.from({length:7},(_,i)=>`<line x1="0" y1="${i*16.6}" x2="100" y2="${i*16.6}"/><line x1="${i*16.6}" y1="0" x2="${i*16.6}" y2="100"/>`).join('')}</g><rect x="35" y="35" width="30" height="30" fill="none" stroke="${c}" stroke-width="4"/></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="none" stroke="${c}" stroke-width="2.4">${Array.from({length:7},(_,i)=>`<path d="M-6 ${13+i*14} Q 25 ${1+i*14} 50 ${13+i*14} T 106 ${13+i*14}"/>`).join('')}</g></svg>`,
+  c => `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><g fill="${c}">${Array.from({length:5},(_,i)=>{const w=100-i*17;return `<polygon points="${50-w/2},${20+i*17} ${50+w/2},${20+i*17} 50,${6+i*17}"/>`}).join('')}</g></svg>`
+];
+
+function coverFor(item, i){
+  const h = hash(item.n + '|' + item.s + '|' + i);
+  const hue   = h % 360;
+  const motif = (h >>> 9) % MOTIFS.length;
+  const rot   = (((h >>> 5) % 7) - 3) * 0.55;   // -1.65° ~ +1.65°
+
+  /* 三档明度配平。
+     第一版 80% 的砖用 L=15%，实测整面墙 75% 像素是黑的 —— 拼贴墙靠的是
+     饱和色块错落出节奏，不是靠深。亮 30% / 中 50% / 深 20%。 */
+  const roll = (h >>> 3) % 10;
+  const tier = roll < 3 ? 'bright' : roll < 8 ? 'mid' : 'deep';
+
+  const bg = {
+    bright: `linear-gradient(152deg, hsl(${hue} 92% 63%), hsl(${(hue+32)%360} 86% 47%))`,
+    mid:    `linear-gradient(152deg, hsl(${hue} 68% 38%), hsl(${(hue+36)%360} 72% 23%))`,
+    deep:   `linear-gradient(152deg, hsl(${hue} 50% 25%), hsl(${(hue+36)%360} 56% 13%))`
+  }[tier];
+
+  const ink = tier === 'bright'
+    ? `hsl(${(hue+180)%360} 48% 13%)`
+    : `hsl(${(hue+152)%360} 86% 68%)`;
+
+  return {bg, ink, motif, bright: tier === 'bright', rot};
+}
+
+function tileHTML(item, i, cls, no){
+  const c = coverFor(item, i);
+  /* 有真实封面图就用它；图挂了 onerror 会移除自己，底下的母题自动露出来 */
+  const art = item.cov
+    ? '<img class="art" src="' + item.cov + '" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">'
+    : '';
+  /* 真实封面图没法预判明暗，一律走「浅色文字 + 深色压暗」，不进入 bright 分支 */
+  const bright = c.bright && !item.cov;
+  return `<article class="tile ${cls}${bright?' bright':''}"
+     style="--rot:${c.rot.toFixed(2)}deg;--d:${(i%22)*38}ms"
+     data-cat="${item.c}">
+    <div class="cv" style="background:${c.bg}">
+      <div class="motif">${MOTIFS[c.motif](c.ink)}</div>${art}
+      <div class="idx">${String(no).padStart(2,'0')}</div>
+      <h3 class="nm">${item.n}</h3>
+      <div class="lab"><span class="yr">${item.s ? item.y + ' · ' + item.s : item.y}</span><span class="hr">${item.v >= 10 ? Math.round(item.v) : item.v.toFixed(1)}h</span></div>
+    </div>
+  </article>`;
+}
+
+/* ---- 砖块尺寸：轮转出疏密变化 ---- */
+const SPAN_ORDER = [3,1,4,2,0,6,5,2,7,1,3,0,5,6];
+const spanClass = (i, seed) => 's' + SPAN_ORDER[(i*5 + 3 + seed*4) % SPAN_ORDER.length];
+
+/* ---- 渲染墙 ---- */
+function reveal(container, els, fuse){
+  const list = [...els];
+  if (reduce || !('IntersectionObserver' in window)){
+    list.forEach(e => e.classList.add('in'));
+    return;
+  }
+  const ob = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (e.isIntersecting){ e.target.classList.add('in'); ob.unobserve(e.target); }
+    });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  list.forEach(e => ob.observe(e));
+
+  /* 保险丝：1.6 秒内若一个都没进场，说明 observer 没工作，全部直接显示。
+     否则失败模式是「整屏空白」—— 用户只会以为网页坏了。 */
+  /* 分区标题这类元素的静止态本来就是可见的，保险丝会让它一载入就提前播出，
+     所以给它们传 fuse=false，只靠观察器决定何时入场。 */
+  if (fuse === false) return;
+  clearTimeout(container._fuse);
+  container._fuse = setTimeout(()=>{
+    if (!list.some(e => e.classList.contains('in'))) list.forEach(e => e.classList.add('in'));
+  }, 1600);
+}
+
+/* 渲染一面墙。seed 让三个分区各有自己的疏密节奏，startNo 让编号跨区连续 */
+function renderWall(sel, list, seed, startNo){
+  const grid = $(sel);
+  if (!grid) return;
+  grid.innerHTML = list.map((it,i)=>
+    tileHTML(it, i, spanClass(i, seed), startNo + i)
+  ).join('');
+  reveal(grid, grid.querySelectorAll('.tile'));
+}
+
+/* 屏 1：年份天际线 */
+function renderTimeline(){
+  const years = [...new Set(DATA.map(d=>d.y))].sort((a,b)=>a-b);
+  const rows = years.map(y=>{
+    const items = DATA.filter(d=>d.y === y);
+    const seg = {game:0, music:0, video:0};
+    items.forEach(d => { seg[d.c] += d.v; });
+    const total = items.reduce((a,d)=>a+d.v, 0);
+    const top = items.slice().sort((a,b)=>b.v-a.v)[0];
+    return {y, items, seg, total, top};
+  });
+
+  const max = Math.max(...rows.map(r=>r.total));
+  const sky = $('#sky');
+
+  sky.innerHTML = rows.map((r,i)=>{
+    const segs = ['game','music','video']
+      .filter(k => r.seg[k] > 0)
+      .map(k => `<div class="sky-seg ${k}" style="height:${(r.seg[k]/r.total*100).toFixed(2)}%"></div>`)
+      .join('');
+
+    return `<div class="sky-col" style="--d:${i*55}ms">
+      <div class="sky-bars" style="--h:${(r.total/max*100).toFixed(2)}%">${segs}</div>
+      <div class="sky-yr">${r.y}</div>
+      <div class="sky-tip"><b>${r.y}</b> · ${Math.round(r.total)}h · ${r.top.n}</div>
+    </div>`;
+  }).join('');
+
+  reveal(sky, sky.querySelectorAll('.sky-col'));
+
+  const byWeight = rows.slice().sort((a,b)=>b.total-a.total);
+  const best = byWeight[0], lean = byWeight[byWeight.length-1];
+  $('#sky-meta').innerHTML =
+    `${years.length} 个年份 · 最重 <b>${best.y}</b>（${Math.round(best.total)}h）· 最轻 <b>${lean.y}</b>（${Math.round(lean.total)}h）`;
+}
+
+/* 屏 4：作息热力图。演示数据 —— 真实版本应来自 B站观看历史的每条时间戳 */
+function buildHeat(){
+  /* 有真实数据就用真实的（B站观看历史按 星期 × 小时 聚合），否则用演示分布 */
+  if (Array.isArray(HEAT) && HEAT.length === 7 &&
+      HEAT.every(r => Array.isArray(r) && r.length === 24)){
+    const hsum = HEAT.flat().reduce((a,b)=>a+b, 0);
+    if (hsum > 0) return HEAT.map(r => r.slice());
+  }
+  const g = [];
+  for (let d=0; d<7; d++){
+    const row = [];
+    for (let h=0; h<24; h++){
+      const evening = Math.exp(-Math.pow(h - 21, 2) / 7);
+      const noon    = 0.55 * Math.exp(-Math.pow(h - 12.6, 2) / 3.2);
+      const late    = h < 2 ? 0.6 : 0;
+      const weekend = d >= 5 ? 1.75 : (d === 4 ? 1.15 : 1);
+      const work    = (h >= 9 && h <= 17) ? 0.28 : 1;
+      row.push(Math.max(0, (evening + noon + late) * weekend * work));
+    }
+    g.push(row);
+  }
+  /* 归一化到视频总时长，让热力图和墙上的数字对得上 */
+  const total = DATA.filter(d=>d.c==='video').reduce((a,d)=>a+d.v, 0);
+  const sum = g.flat().reduce((a,b)=>a+b, 0);
+  return g.map(row => row.map(v => v / sum * total));
+}
+
+function renderHeat(){
+  const g = buildHeat();
+  const DOW = ['一','二','三','四','五','六','日'];
+  const max = Math.max(...g.flat());
+
+  let html = '<div class="heat-dow"></div>';
+  for (let h=0; h<24; h++) html += `<div class="heat-hr">${h % 3 === 0 ? h : ''}</div>`;
+
+  g.forEach((row, d)=>{
+    html += `<div class="heat-dow">周${DOW[d]}</div>`;
+    row.forEach((v, h)=>{
+      /* 亮度取 sqrt：线性会把高峰之外的格子全压成黑，看不出结构 */
+      const t = Math.sqrt(v / max);
+      html += `<div class="heat-c" style="--l:${(7 + t*54).toFixed(1)}%"
+        title="周${DOW[d]} ${String(h).padStart(2,'0')}:00 · 累计 ${v.toFixed(1)} 小时"></div>`;
+    });
+  });
+  $('#heat').innerHTML = html;
+
+  let peak = {v:-1, d:0, h:0};
+  g.forEach((row,d)=>row.forEach((v,h)=>{ if (v > peak.v) peak = {v,d,h}; }));
+
+  const total = g.flat().reduce((a,b)=>a+b, 0);
+  const night = g.map(row => row.slice(0,3).concat(row.slice(22)))
+                 .flat().reduce((a,b)=>a+b, 0) / total;
+
+  $('#heat-note').innerHTML =
+    `峰值在 <b>周${DOW[peak.d]} ${String(peak.h).padStart(2,'0')}:00</b>，累计 <b>${peak.v.toFixed(1)} 小时</b>。<br>` +
+    `有 <b>${Math.round(night*100)}%</b> 的观看落在 22 点到凌晨 3 点之间。`;
+}
+
+/* ---- HERO：幽灵墙 ---- */
+function buildGhost(){
+  const g = $('#ghost');
+  const n = 30;
+  let html = '';
+  for (let i=0;i<n;i++){
+    const it = DATA[i % DATA.length];
+    const c  = coverFor(it, i + 100);
+    const h  = hash('g'+i);
+    const w  = 90 + (h % 190);
+    const ht = 90 + ((h >>> 4) % 200);
+    const x  = -8 + ((h >>> 7) % 116);
+    const y  = -8 + ((h >>> 11) % 116);
+    html += `<div class="gt" style="
+      left:${x}%; top:${y}%; width:${w}px; height:${ht}px;
+      background:${c.bg};
+      transform:rotate(${((h>>>14)%13)-6}deg);">${MOTIFS[c.motif](c.ink)}</div>`;
+  }
+  g.innerHTML = html;
+}
+
+/* ---- HERO：数字滚动 ---- */
+function countUp(el, to, dur){
+  if (reduce){ el.textContent = to.toLocaleString('en-US'); return; }
+  const t0 = performance.now();
+  (function step(t){
+    const p = Math.min(1, (t - t0) / dur);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(to * e).toLocaleString('en-US');
+    if (p < 1) requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ---- HERO：文案轮播 ---- */
+function cycleToggler(){
+  const spans = [...$('#toggler').children];
+  if (reduce) return;
+  let i = 0;
+  setInterval(()=>{
+    spans[i].classList.remove('on');
+    i = (i + 1) % spans.length;
+    spans[i].classList.add('on');
+  }, 2800);
+}
+
+/* ---- 筛选 ---- */
+/* 分区导航：是目录，也是锚点；滚到哪个分区就高亮哪个 */
+function buildNav(){
+  const box = $('#chips');
+  box.innerHTML = NAV.map(c=>`<a class="chip" href="#${c.k}">${c.label}</a>`).join('')
+                + '<div class="prog" id="prog"></div>';
+
+  if (!('IntersectionObserver' in window)) return;
+  const links = [...box.querySelectorAll('.chip')];
+  const ob = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id));
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  NAV.forEach(c=>{ const el = document.getElementById(c.k); if (el) ob.observe(el); });
+}
+
+/* 启动 */
+(function init(){
+  const totalHours = DATA.reduce((a,d)=>a+d.v, 0);
+  const days = Math.round(totalHours / 24);
+  const months = (days / 30).toFixed(1);
+  const sumOf = k => DATA.filter(d=>d.c===k).reduce((a,d)=>a+d.v, 0);
+
+  $('#eyebrow').textContent = 'Personal Archive · Steam / Music / Bilibili';
+  $('#unitnote').textContent = `/ ${DATA.length} entries`;
+
+  const tg = $('#toggler').children;
+  tg[0].innerHTML = `这些时间不是消失了，是<b>被记录下来了</b>。`;
+  tg[1].innerHTML = `等于连续 <b>${days} 天</b>不吃不睡，约 <b>${months} 个月</b>。`;
+  tg[2].innerHTML = `全部 <b>${DATA.length}</b> 个条目，${Math.min(...DATA.map(d=>d.y))} — ${Math.max(...DATA.map(d=>d.y))}。`;
+
+  $('#walltext-days').textContent = days + ' 天';
+  $('#outro-meta').textContent = `${DATA.length} entries · ${totalHours.toLocaleString('en-US')} hours`;
+
+  $('#legend').innerHTML = [['lg-game','游戏'],['lg-music','音乐'],['lg-video','视频']]
+    .map(function(p){ return `<span class="${p[0]}"><i></i>${p[1]}</span>`; }).join('');
+
+  const meta = k => `${DATA.filter(d=>d.c===k).length} 条目 · ${sumOf(k).toLocaleString('en-US')} 小时 · 占 <b>${Math.round(sumOf(k)/totalHours*100)}%</b>`;
+  $('#games-meta').innerHTML = meta('game');
+  $('#music-meta').innerHTML = meta('music');
+  $('#video-meta').innerHTML = meta('video');
+
+  /* 先武装入场动画，再渲染。JS 能走到这里说明动画可用；走不到就不挂 .anim，
+     所有元素保持默认可见，退化成静态页，而不是一片黑。 */
+  if (!reduce) document.documentElement.classList.add('anim');
+
+  /* 分区大标题套一层遮罩，滚到视口才从下往上推出来 */
+  document.querySelectorAll('.band-head h2').forEach(h=>{
+    if (!h.querySelector('.mask'))
+      h.innerHTML = '<span class="mask"><span class="mask-in">' + h.innerHTML + '</span></span>';
+  });
+  document.querySelectorAll('.band-head').forEach(b => reveal(b, [b], false));
+
+  buildGhost();
+  buildNav();
+  renderTimeline();
+  renderWall('#grid-game',  DATA.filter(d=>d.c==='game'),  0, 1);
+  renderWall('#grid-music', DATA.filter(d=>d.c==='music'), 3, 19);
+  renderWall('#grid-video', DATA.filter(d=>d.c==='video'), 7, 35);
+  renderHeat();
+  countUp($('#bignum'), days, 2000);
+  cycleToggler();
+
+  /* 幽灵墙视差 */
+  if (!reduce){
+    const gh = $('#ghost'), prog = $('#prog');
+    let ticking = false;
+    addEventListener('scroll', ()=>{
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(()=>{
+        const y = scrollY;
+        gh.style.transform = `translate3d(0, ${y * 0.16}px, 0) scale(${1 + Math.min(y,900)/4200})`;
+        if (prog){
+          const max = document.documentElement.scrollHeight - innerHeight;
+          prog.style.width = (max > 0 ? Math.min(1, y / max) * 100 : 0) + '%';
+        }
+        ticking = false;
+      });
+    }, {passive:true});
+  }
+})();
+</script>
+</body>
+</html>

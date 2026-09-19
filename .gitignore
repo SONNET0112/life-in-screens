@@ -1,0 +1,6 @@
+﻿__pycache__/
+*.pyc
+index.html.bak
+_check.js
+_diag.html
+_preview-*.html
