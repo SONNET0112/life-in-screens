@@ -18,12 +18,16 @@
    ============================================================ */
 
 :root{
-  --ink:      #0b0a0c;
-  --ink-2:    #141218;
-  --paper:    #f5f2ea;
-  --mute:     #6b6673;
-  --acid:     #d9ff3d;
-  --hot:      #ff3d81;
+  /* 撞色海报：纸白底 + 墨黑字 + 黄/紫/青互撞 */
+  --bg:      #f2efe6;
+  --bg-2:    #e7e1d2;
+  --fg:      #14110f;
+  --mute:    #6f695e;
+  --line:    rgba(20,17,15,.16);
+  --violet:  #5b2bff;
+  --yellow:  #ffd400;
+  --cyan:    #00c2ff;
+  --magenta: #ff2d78;
   --gut:      clamp(10px,1.1vw,18px);
 
   --f-disp: 'Anton', Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
@@ -34,17 +38,17 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  background:var(--ink);
-  color:var(--paper);
+  background:var(--bg);
+  color:var(--fg);
   font-family:var(--f-body);
   overflow-x:hidden;
   cursor:crosshair;
 }
-::selection{background:var(--acid);color:var(--ink)}
+::selection{background:var(--violet);color:var(--bg)}
 
 /* ---------- 氛围层：噪点 + 光晕 ---------- */
 .grain{
-  position:fixed; inset:-60%; z-index:900; pointer-events:none; opacity:.05;
+  position:fixed; inset:-60%; z-index:900; pointer-events:none; opacity:.085; mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 7s steps(5) infinite;
 }
@@ -56,9 +60,9 @@ body{
 .glow{
   position:fixed; inset:0; z-index:0; pointer-events:none;
   background:
-    radial-gradient(52vw 52vw at 14% 8%,  rgba(217,255,61,.10), transparent 62%),
-    radial-gradient(46vw 46vw at 88% 26%, rgba(255,61,129,.11), transparent 64%),
-    radial-gradient(60vw 60vw at 50% 96%, rgba(80,120,255,.10), transparent 66%);
+    radial-gradient(52vw 52vw at 14% 8%,  rgba(255,212,0,.20), transparent 62%),
+    radial-gradient(46vw 46vw at 88% 26%, rgba(0,194,255,.16), transparent 64%),
+    radial-gradient(60vw 60vw at 50% 96%, rgba(255,45,120,.10), transparent 66%);
   animation:drift 22s ease-in-out infinite alternate;
 }
 @keyframes drift{
@@ -75,8 +79,8 @@ body{
   overflow:hidden;
 }
 .ghost{
-  position:absolute; inset:-12%; z-index:0; opacity:.17;
-  filter:blur(1.4px) saturate(1.25);
+  position:absolute; inset:-12%; z-index:0; opacity:.34;
+  filter:blur(2.5px) saturate(.95);
   pointer-events:none; will-change:transform;
 }
 .ghost .gt{
@@ -94,9 +98,9 @@ body{
   font-family:var(--f-disp);
   font-size:clamp(104px,25vw,400px);
   line-height:.8; letter-spacing:-.025em;
-  color:var(--paper);
+  color:var(--fg);
   margin:.06em 0 0;
-  text-shadow:0 0 90px rgba(217,255,61,.20), 0 0 190px rgba(255,61,129,.12);
+  text-shadow:0 0 90px rgba(91,43,255,.22), 0 0 190px rgba(91,43,255,.10);
   font-variant-numeric:tabular-nums;
 }
 .unitrow{
@@ -105,7 +109,7 @@ body{
 }
 .unit{
   font-family:var(--f-disp); font-size:clamp(38px,7vw,110px);
-  line-height:.9; color:var(--acid); letter-spacing:.02em;
+  line-height:.9; color:var(--violet); letter-spacing:.02em;
 }
 .unitnote{
   font-family:var(--f-mono); font-size:clamp(10px,1.1vw,13px);
@@ -114,7 +118,7 @@ body{
 .toggler{
   position:relative; height:1.9em; margin-top:clamp(26px,4vh,54px);
   font-family:var(--f-mono); font-size:clamp(11px,1.35vw,15px);
-  letter-spacing:.06em; color:var(--paper);
+  letter-spacing:.06em; color:var(--fg);
 }
 .toggler span{
   position:absolute; left:0; right:0; top:0;
@@ -122,7 +126,7 @@ body{
   transform:translateY(6px);
 }
 .toggler span.on{opacity:1; transform:translateY(0)}
-.toggler b{color:var(--acid); font-weight:500}
+.toggler b{color:var(--violet); font-weight:500}
 
 .scrollhint{
   position:absolute; bottom:clamp(20px,4vh,44px); left:0; right:0; z-index:3;
@@ -140,16 +144,16 @@ body{
 }
 .walltext .kicker{
   font-family:var(--f-mono); font-size:10px; letter-spacing:.4em;
-  text-transform:uppercase; color:var(--acid);
+  text-transform:uppercase; color:var(--violet);
 }
 .walltext h2{
   font-weight:900; font-size:clamp(26px,4.4vw,62px);
   line-height:1.04; letter-spacing:-.02em; margin:.3em 0 .5em;
 }
-.walltext h2 em{font-style:normal; color:var(--acid)}
+.walltext h2 em{font-style:normal; color:var(--violet)}
 .walltext p{
   font-size:clamp(13px,1.35vw,16px); line-height:1.85;
-  color:#a9a3b0; max-width:52ch;
+  color:#5d574d; max-width:52ch;
 }
 
 /* ---------- 分区导航（吸顶） ---------- */
@@ -157,20 +161,20 @@ body{
   position:sticky; top:0; z-index:30;
   display:flex; flex-wrap:wrap; gap:8px;
   padding:11px clamp(20px,7vw,120px);
-  background:linear-gradient(to bottom, rgba(11,10,12,.94), rgba(11,10,12,.6));
+  background:linear-gradient(to bottom, rgba(242,239,230,.94), rgba(242,239,230,.62));
   backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(245,242,234,.07);
+  border-bottom:1px solid rgba(20,17,15,.10);
 }
 .chip{
   font-family:var(--f-mono); font-size:11px; letter-spacing:.16em;
   text-transform:uppercase; text-decoration:none;
   background:transparent; color:var(--mute);
-  border:1px solid rgba(245,242,234,.16);
+  border:1px solid var(--line);
   padding:.55em 1.15em; border-radius:999px; cursor:pointer;
   transition:all .28s cubic-bezier(.2,.8,.2,1);
 }
-.chip:hover{color:var(--paper); border-color:rgba(245,242,234,.45); transform:translateY(-2px)}
-.chip.on{background:var(--acid); color:var(--ink); border-color:var(--acid); font-weight:500}
+.chip:hover{color:var(--fg); border-color:rgba(20,17,15,.45); transform:translateY(-2px)}
+.chip.on{background:var(--violet); color:var(--bg); border-color:var(--violet); font-weight:500}
 
 /* ---------- 墙 ---------- */
 .wall{
@@ -198,9 +202,11 @@ body{
    或动画被中断，用户看到的就是一整页全黑 —— 这个失败模式代价太大。 */
 .tile{
   position:relative; overflow:hidden; border-radius:2px;
-  background:var(--ink-2);
+  background:var(--bg-2);
   transform:rotate(var(--rot,0deg));
   cursor:crosshair;
+  /* 硬投影（无模糊）—— 丝网印刷 / 拼贴海报的做法 */
+  box-shadow:4px 4px 0 rgba(20,17,15,.85);
 }
 /* 只有 JS 明确挂上 .anim 之后，才进入「隐藏待入场」状态 */
 .anim .tile{
@@ -219,7 +225,7 @@ body{
 .grid .tile:hover{
   transform:scale(1.045) rotate(0deg);
   z-index:6;
-  box-shadow:0 34px 90px rgba(0,0,0,.78);
+  box-shadow:10px 10px 0 rgba(20,17,15,.9), 0 0 0 2px var(--violet);
   transition:transform .35s cubic-bezier(.2,.8,.2,1), opacity .3s, filter .3s;
 }
 
@@ -251,7 +257,7 @@ body{
   position:absolute; left:11px; right:11px; bottom:9px; z-index:2;
   display:flex; justify-content:space-between; align-items:baseline; gap:8px;
   font-family:var(--f-mono); font-size:9.5px; letter-spacing:.13em;
-  color:var(--acid);
+  color:var(--violet);
   min-width:0;
 }
 /* 窄砖上的长副标题（如 "2017 · Maddy Makes Games"）会换行并顶到标题，
@@ -261,9 +267,9 @@ body{
 .lab .hr{flex:none}
 
 /* 亮色砖：文字反色 */
-.tile.bright .nm{color:#0b0a0c; text-shadow:none}
-.tile.bright .cv::after{background:linear-gradient(to top,rgba(255,255,255,.5),transparent)}
-.tile.bright .lab{color:#0b0a0c}
+.tile.bright .nm{color:#14110f; text-shadow:none}
+.tile.bright .cv::after{background:linear-gradient(to top,rgba(242,239,230,.86),transparent)}
+.tile.bright .lab{color:#14110f}
 .tile.bright .lab .yr{color:rgba(0,0,0,.5)}
 .tile.bright .idx{color:rgba(0,0,0,.42)}
 
@@ -277,19 +283,19 @@ body{
 .band-head .kicker{
   display:block; margin-bottom:.9em;
   font-family:var(--f-mono); font-size:10px; letter-spacing:.4em;
-  text-transform:uppercase; color:var(--acid);
+  text-transform:uppercase; color:var(--violet);
 }
 .band-head h2{
   font-family:var(--f-disp); font-weight:900;
   font-size:clamp(52px,12vw,200px);
-  line-height:.8; letter-spacing:-.03em; margin:0; color:var(--paper);
+  line-height:.8; letter-spacing:-.03em; margin:0; color:var(--fg);
 }
-.band-head h2 em{font-style:normal; color:var(--acid)}
+.band-head h2 em{font-style:normal; color:var(--violet)}
 .band-meta{
   font-family:var(--f-mono); font-size:10.5px; letter-spacing:.2em;
   text-transform:uppercase; color:var(--mute); padding-bottom:.9em;
 }
-.band-meta b{color:var(--paper); font-weight:500}
+.band-meta b{color:var(--fg); font-weight:500}
 
 /* ---------- 时间线：年份天际线 ---------- */
 /* 墙是混沌的，天际线是秩序 —— 用三个固定分类色把结构讲清楚 */
@@ -304,9 +310,9 @@ body{
 }
 .legend span{display:flex; align-items:center}
 .legend i{width:10px; height:10px; border-radius:1px; margin-right:7px; flex:none}
-.legend .lg-game  i{background:var(--acid)}
-.legend .lg-music i{background:var(--hot)}
-.legend .lg-video i{background:#5aa9ff}
+.legend .lg-game  i{background:var(--yellow)}
+.legend .lg-music i{background:var(--violet)}
+.legend .lg-video i{background:var(--cyan)}
 
 .sky-wrap{
   position:relative; z-index:2;
@@ -316,7 +322,7 @@ body{
 .sky-grid{
   display:flex; align-items:flex-end; gap:clamp(3px,.7vw,12px);
   height:clamp(230px,36vh,440px);
-  border-bottom:1px solid rgba(245,242,234,.2);
+  border-bottom:1px solid rgba(20,17,15,.22);
 }
 .sky-col{
   position:relative; flex:1 1 0; min-width:0; height:100%;
@@ -327,28 +333,28 @@ body{
   display:flex; flex-direction:column; width:100%;
   height:var(--h,0%);
   transform-origin:bottom center;
-  outline:1px solid rgba(11,10,12,.5);
+  outline:1px solid rgba(20,17,15,.55);
 }
 /* 静止态是「完整高度」。scaleY(0) 只在 JS 挂上 .anim 之后才存在 —— 理由同砖块：
    可见性不该依赖动画完成，否则动画一断整屏就没了。 */
 .anim .sky-bars{transform:scaleY(0); transition:transform .95s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
 .anim .sky-col.in .sky-bars{transform:scaleY(1)}
 .sky-seg{width:100%}
-.sky-seg.game {background:var(--acid)}
-.sky-seg.music{background:var(--hot)}
-.sky-seg.video{background:#5aa9ff}
-.sky-col:hover .sky-bars{filter:brightness(1.3) saturate(1.15)}
+.sky-seg.game {background:var(--yellow)}
+.sky-seg.music{background:var(--violet)}
+.sky-seg.video{background:var(--cyan)}
+.sky-col:hover .sky-bars{filter:saturate(1.25) brightness(.94)}
 .sky-yr{
   position:absolute; top:calc(100% + 11px); left:0; right:0; text-align:center;
   font-family:var(--f-mono); font-size:clamp(9.5px,1vw,12px);
   color:var(--mute); transition:color .2s;
 }
-.sky-col:hover .sky-yr{color:var(--acid)}
+.sky-col:hover .sky-yr{color:var(--violet)}
 .sky-tip{
   position:absolute; top:calc(100% + 30px); left:50%; transform:translateX(-50%);
-  background:var(--ink-2); border:1px solid rgba(245,242,234,.18);
+  background:var(--bg-2); border:1px solid var(--line);
   padding:8px 11px; border-radius:2px; white-space:nowrap;
-  font-family:var(--f-mono); font-size:10.5px; color:var(--paper);
+  font-family:var(--f-mono); font-size:10.5px; color:var(--fg);
   opacity:0; pointer-events:none; transition:opacity .2s; z-index:9;
 }
 .sky-col:hover .sky-tip{opacity:1}
@@ -356,7 +362,7 @@ body{
    但照样占布局，会把文档撑出横向溢出。首列贴左、末两列贴右，再兜一层横向裁切。 */
 .sky-col:first-child .sky-tip{left:0; transform:none}
 .sky-col:nth-last-child(-n+2) .sky-tip{left:auto; right:0; transform:none}
-.sky-tip b{color:var(--acid); font-weight:500}
+.sky-tip b{color:var(--violet); font-weight:500}
 
 /* ---------- 分区内小标题 ---------- */
 .subhead{
@@ -366,13 +372,13 @@ body{
 .subhead .kicker{
   display:block; margin-bottom:.85em;
   font-family:var(--f-mono); font-size:10px; letter-spacing:.4em;
-  text-transform:uppercase; color:var(--acid);
+  text-transform:uppercase; color:var(--violet);
 }
 .subhead h3{
   font-weight:900; font-size:clamp(24px,3.6vw,54px);
   line-height:1.05; letter-spacing:-.02em; margin:0;
 }
-.subhead h3 em{font-style:normal; color:var(--acid)}
+.subhead h3 em{font-style:normal; color:var(--violet)}
 
 /* ---------- 视频热力 ---------- */
 .heat-wrap{
@@ -394,15 +400,15 @@ body{
 }
 .heat-c{
   aspect-ratio:1/1; border-radius:2px; min-width:0;
-  background:hsl(215 92% var(--l,7%));
+  background:hsl(193 100% var(--l,90%));
   transition:transform .16s ease, box-shadow .16s ease;
 }
-.heat-c:hover{transform:scale(1.45); box-shadow:0 0 0 1.5px var(--acid); position:relative; z-index:5}
+.heat-c:hover{transform:scale(1.45); box-shadow:0 0 0 1.5px var(--violet); position:relative; z-index:5}
 .heat-note{
   margin-top:22px; font-family:var(--f-mono); font-size:11px;
   line-height:1.95; color:var(--mute); letter-spacing:.03em;
 }
-.heat-note b{color:var(--acid); font-weight:500}
+.heat-note b{color:var(--violet); font-weight:500}
 
 /* ---------- 尾声 ---------- */
 /* ---------- 编排式进场 ---------- */
@@ -440,7 +446,7 @@ body{
 /* 吸顶导航底部的阅读进度条 */
 .prog{
   position:absolute; left:0; bottom:-1px; height:2px; width:0;
-  background:linear-gradient(90deg, var(--acid), var(--hot) 62%, #5aa9ff);
+  background:linear-gradient(90deg, var(--yellow), var(--violet) 50%, var(--cyan));
   z-index:2;
 }
 
@@ -448,7 +454,7 @@ body{
 .cv{transition:transform .62s cubic-bezier(.2,.8,.2,1)}
 .grid .tile:hover .cv{transform:scale(1.055)}
 .grid .tile:hover{
-  box-shadow:0 34px 90px rgba(0,0,0,.78), 0 0 0 1px rgba(217,255,61,.55);
+  box-shadow:10px 10px 0 rgba(20,17,15,.9), 0 0 0 2px var(--violet);
 }
 
 .outro{
@@ -459,7 +465,7 @@ body{
   font-weight:900; font-size:clamp(20px,2.9vw,42px);
   line-height:1.25; letter-spacing:-.015em;
 }
-.outro p em{font-style:normal; color:var(--acid)}
+.outro p em{font-style:normal; color:var(--violet)}
 .outro small{
   display:block; margin-top:2.2em;
   font-family:var(--f-mono); font-size:10px; letter-spacing:.32em;
@@ -689,7 +695,7 @@ const NAV = [
 ];
 
 /* 三个分类的固定色。墙是混沌的，天际线和图例要靠固定色讲结构 */
-const CATCOLOR = {game:'var(--acid)', music:'var(--hot)', video:'#5aa9ff'};
+const CATCOLOR = {game:'var(--yellow)', music:'var(--violet)', video:'var(--cyan)'};
 
 /* ============================================================
    以下是引擎，通常不需要改
@@ -719,25 +725,29 @@ const MOTIFS = [
 
 function coverFor(item, i){
   const h = hash(item.n + '|' + item.s + '|' + i);
-  const hue   = h % 360;
   const motif = (h >>> 9) % MOTIFS.length;
   const rot   = (((h >>> 5) % 7) - 3) * 0.55;   // -1.65° ~ +1.65°
 
-  /* 三档明度配平。
-     第一版 80% 的砖用 L=15%，实测整面墙 75% 像素是黑的 —— 拼贴墙靠的是
-     饱和色块错落出节奏，不是靠深。亮 30% / 中 50% / 深 20%。 */
+  /* 撞色海报只用有限几个色相。跑满 360° 全色轮会变成彩虹，反而没有设计感 ——
+     这是「极繁」和「乱」的分界线。黄 / 紫 / 青 / 品红 / 橙红。 */
+  const HUES = [48, 275, 192, 330, 14];
+  const hue = HUES[h % HUES.length];
+
+  /* 海报要有大色块：亮砖占一半，深砖占少数。整体明度抬高，因为底色已经是浅的 —— 
+     深砖太多，墙会显得脏。 */
   const roll = (h >>> 3) % 10;
-  const tier = roll < 3 ? 'bright' : roll < 8 ? 'mid' : 'deep';
+  const tier = roll < 5 ? 'bright' : roll < 9 ? 'mid' : 'deep';
 
   const bg = {
-    bright: `linear-gradient(152deg, hsl(${hue} 92% 63%), hsl(${(hue+32)%360} 86% 47%))`,
-    mid:    `linear-gradient(152deg, hsl(${hue} 68% 38%), hsl(${(hue+36)%360} 72% 23%))`,
-    deep:   `linear-gradient(152deg, hsl(${hue} 50% 25%), hsl(${(hue+36)%360} 56% 13%))`
+    bright: `linear-gradient(158deg, hsl(${hue} 100% 62%), hsl(${hue} 96% 52%))`,
+    mid:    `linear-gradient(158deg, hsl(${hue} 94% 45%), hsl(${hue} 90% 36%))`,
+    deep:   `linear-gradient(158deg, hsl(${hue} 84% 28%), hsl(${hue} 80% 20%))`
   }[tier];
 
+  /* 母题走互补方向的撞色，而不是同色系 —— 这是撞色海报的关键 */
   const ink = tier === 'bright'
-    ? `hsl(${(hue+180)%360} 48% 13%)`
-    : `hsl(${(hue+152)%360} 86% 68%)`;
+    ? `hsl(${(hue + 150) % 360} 92% 20%)`
+    : `hsl(${(hue + 165) % 360} 96% 72%)`;
 
   return {bg, ink, motif, bright: tier === 'bright', rot};
 }
@@ -877,7 +887,7 @@ function renderHeat(){
     row.forEach((v, h)=>{
       /* 亮度取 sqrt：线性会把高峰之外的格子全压成黑，看不出结构 */
       const t = Math.sqrt(v / max);
-      html += `<div class="heat-c" style="--l:${(7 + t*54).toFixed(1)}%"
+      html += `<div class="heat-c" style="--l:${(90 - t*48).toFixed(1)}%"
         title="周${DOW[d]} ${String(h).padStart(2,'0')}:00 · 累计 ${v.toFixed(1)} 小时"></div>`;
     });
   });
